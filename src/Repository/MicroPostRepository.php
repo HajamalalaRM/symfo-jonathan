@@ -39,6 +39,15 @@ class MicroPostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findById($id):MicroPost
+    {
+
+        return $this->createQueryBuilder('p')
+            ->where('id',$id)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return MicroPost[] Returns an array of MicroPost objects
 //     */

@@ -5,3 +5,10 @@
 body {
     background-color: lightgray;
 } */
+:root {
+     --primary: #faedcd;
+     --secondary: #d4a373;
+     --lighted: #fefae0;
+     --greened: #e9edc9;
+     --greeneddark: #ccd5ae;
+}

@@ -11,6 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MicroPostRepository::class)]
 class MicroPost
 {
+    public const EDIT = 'POST_EDIT';
+    public const VIEW = 'POST_VIEW';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -29,7 +32,11 @@ class MicroPost
     private Collection $comments;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'liked')]
-    private Collection $likedBy; 
+    private Collection $likedBy;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null; 
 
     public function __construct()
     {
@@ -128,6 +135,18 @@ class MicroPost
     public function removeLikedBy(User $likedBy): static
     {
         $this->likedBy->removeElement($likedBy);
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }
